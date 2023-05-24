@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SectionTitle from "../../components/SectionTitle/SectionTitle";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import RecommendsCard from "./RecommendsCard";
 
 const Recommends = () => {
@@ -7,7 +7,7 @@ const Recommends = () => {
   useEffect(() => {
     fetch("menu.json")
       .then((res) => res.json())
-      .then((data) => setRecommends(data.slice(0, 3)));
+      .then((data) => setRecommends(data.slice(10, 13)));
   }, []);
   return (
     <section className="my-20">
