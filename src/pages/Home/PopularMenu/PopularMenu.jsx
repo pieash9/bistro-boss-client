@@ -15,7 +15,7 @@ const PopularMenu = () => {
         ))}
       </div>
       <div className="text-center mt-5">
-        <button className="btn btn-outline border-t-0 border-x-0 mt-4 ">
+        <button className="btn btn-outline border-t-0 border-x-0 mt-4 border-b-4 bg-slate-100">
           View Full Menu
         </button>
       </div>

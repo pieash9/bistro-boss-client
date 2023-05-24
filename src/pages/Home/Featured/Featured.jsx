@@ -22,7 +22,7 @@ const Featured = () => {
               veritatis maiores doloribus facilis in ab provident quo. Fuga
               maiores nostrum non odio?
             </p>
-            <button className="btn btn-outline border-t-0 border-x-0 mt-4 text-white">
+            <button className="btn btn-outline border-t-0 border-x-0 mt-4 text-white border-b-4 ">
               Order Now
             </button>
           </div>
