@@ -5,11 +5,11 @@ import { FaShoppingCart } from "react-icons/fa";
 import UseCart from "../../../hooks/UseCart";
 
 const NavBar = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [cart] = UseCart();
 
   const handleLogout = () => {
-    logout()
+    logOut()
       .then(() => {})
       .catch((err) => console.log(err));
   };

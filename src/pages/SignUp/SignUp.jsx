@@ -4,10 +4,11 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
-  const { createUser,updateUserProfile } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,23 +16,31 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
     createUser(data.email, data.password)
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
-        updateUserProfile(data.name,data.photoURL)
-        .then(()=>{
-            Swal.fire({
-                icon: "success",
-                title: "Sign Up Success",
-                // text: 'Something went wrong!',
+        updateUserProfile(data.name, data.photoURL)
+          .then(() => {
+            const saveUser = { name: data.name, email: data.email };
+            fetch(`http://localhost:5000/users`, {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(saveUser),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.insertedId) {
+                  Swal.fire({
+                    icon: "success",
+                    title: "Sign Up Success",
+                  });
+                  reset();
+                  navigate("/");
+                }
               });
-            console.log('user updated')
-            reset()
-            navigate("/")
-        })
-        .catch(err=>console.log(err))
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   };
@@ -73,13 +82,14 @@ const SignUp = () => {
                 </label>
                 <input
                   {...register("photoURL", { required: true })}
-                  
                   type="text"
                   placeholder="Photo URL"
                   className="input input-bordered"
                 />
                 {errors.photoURL && (
-                  <span className="mt-2 text-red-600">Photo URL is required</span>
+                  <span className="mt-2 text-red-600">
+                    Photo URL is required
+                  </span>
                 )}
               </div>
 
@@ -143,10 +153,14 @@ const SignUp = () => {
                 </button>
               </div>
               <p>
-              <small>
-                Already have an account? <Link className="link-hover" to="/login">Sign in</Link>
-              </small>
-            </p>
+                <small>
+                  Already have an account?{" "}
+                  <Link className="link-hover" to="/login">
+                    Sign in
+                  </Link>
+                </small>
+              </p>
+              <SocialLogin/>
             </form>
           </div>
         </div>
