@@ -7,25 +7,30 @@ import UseCart from "../../hooks/UseCart";
 const FoodCard = ({ item }) => {
   const { _id, name, recipe, image, price } = item;
   const { user } = useContext(AuthContext);
-  const [,refetch] = UseCart()
+  const [, refetch] = UseCart();
 
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleAddToCart = () => {
-    
     if (user && user.email) {
-      const cartItem = {menuItemId : _id,name,price,image,email:user.email}
-     
-      fetch(`http://localhost:5000/carts`, {
+      const cartItem = {
+        menuItemId: _id,
+        name,
+        price,
+        image,
+        email: user.email,
+      };
+
+      fetch(`https://bistro-boss-server-zeta.vercel.app/carts`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(cartItem)
+        body: JSON.stringify(cartItem),
       })
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
-            refetch()  //refetch cart to update the number on cart
+            refetch(); //refetch cart to update the number on cart
             Swal.fire({
               position: "top-end",
               icon: "success",

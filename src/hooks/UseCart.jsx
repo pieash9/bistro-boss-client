@@ -3,15 +3,15 @@ import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 
 const UseCart = () => {
-  const { user,loading } = useAuth()
+  const { user, loading } = useAuth();
   // const token = localStorage.getItem("access-token");
   const [axiosSecure] = useAxiosSecure();
 
   const { refetch, data: cart = [] } = useQuery({
     queryKey: ["carts", user?.email],
-    enabled:!loading,
+    enabled: !loading,
     // queryFn: async () => {
-    //   const res =await fetch(`http://localhost:5000/carts?email=${user?.email}`,{
+    //   const res =await fetch(`https://bistro-boss-server-zeta.vercel.app/carts?email=${user?.email}`,{
     //     headers:{
     //       authorization:`bearer ${token}`
     //     }
@@ -20,8 +20,8 @@ const UseCart = () => {
     // },
     queryFn: async () => {
       const res = await axiosSecure(`/carts?email=${user?.email}`);
-      console.log("res from axios",res)
-      return res.data
+      console.log("res from axios", res);
+      return res.data;
     },
   });
   return [cart, refetch];

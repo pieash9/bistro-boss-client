@@ -12,7 +12,7 @@ const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews`)
+    fetch(`https://bistro-boss-server-zeta.vercel.app/reviews`)
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);
@@ -33,9 +33,7 @@ const Testimonials = () => {
                   value={review?.rating}
                   readOnly
                 />
-                <FaQuoteLeft
-                  className="text-7xl text-[#151515] !my-8"
-                />
+                <FaQuoteLeft className="text-7xl text-[#151515] !my-8" />
 
                 <p>{review?.details}</p>
                 <p className="text-2xl text-[#CD9003]">{review?.name}</p>

@@ -1,7 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Legend } from "recharts";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Legend,
+} from "recharts";
 import { PieChart, Pie, ResponsiveContainer } from "recharts";
 
 const AdminHome = () => {
@@ -17,7 +25,7 @@ const AdminHome = () => {
   });
 
   //   useEffect(() => {
-  //     fetch(`http://localhost:5000/admin-stats`)
+  //     fetch(`https://bistro-boss-server-zeta.vercel.app/admin-stats`)
   //       .then((res) => res.json())
   //       .then((data) => setStats(data));
   //   }, []);
@@ -30,7 +38,7 @@ const AdminHome = () => {
       return res.data;
     },
   });
-  console.log(chartData)
+  console.log(chartData);
 
   const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
@@ -59,7 +67,6 @@ const AdminHome = () => {
     innerRadius,
     outerRadius,
     percent,
-    
   }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -167,31 +174,31 @@ const AdminHome = () => {
         </div>
       </div>
       <div className="flex">
-      <div className="w-1/2">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart width={400} height={400}>
-            <Legend></Legend>
-            <Pie
-              data={chartData}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              label={renderCustomizedLabel}
-              outerRadius={80}
-              fill="#8884d8"
-              dataKey="count"
-            >
-              {chartData.map((entry, index) => (
-                <Cell
-                name={entry.category}
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
+        <div className="w-1/2">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart width={400} height={400}>
+              <Legend></Legend>
+              <Pie
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={renderCustomizedLabel}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="count"
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    name={entry.category}
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
         <div className="w-1/2 " />
         <BarChart
           width={500}
@@ -219,7 +226,6 @@ const AdminHome = () => {
           </Bar>
         </BarChart>
       </div>
-      
     </div>
   );
 };
